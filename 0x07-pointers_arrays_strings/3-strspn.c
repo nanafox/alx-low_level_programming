@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * _strspn - get length of a prefix substring
  * @s: string
@@ -12,18 +14,24 @@
 unsigned int _strspn(char *s, char *accept)
 {
 	unsigned int len = 0;
-	int i, j;
+	int i, map[256] = {0};
 
-	for (i = 0; s[i]; i++)
+	/* handle empty arguments */
+	if (s == NULL || accept == NULL)
+		return (0);
+
+	/* use a hash map for efficient lookup - assume ASCII */
+	for (i = 0; accept[i] != '\0'; i++)
+		map[(unsigned char)accept[i]] = 1;
+
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		for (j = 0; accept[j]; j++)
-		{
-			if (s[i] == s[j])
-			{
-				len++;
-				break; /* match found - move to next character in string */
-			}
-		}
+		if (s[i] == ' ') /* search still next word */
+			break;
+		else if (map[(unsigned char)s[i]])
+			len++; /* match found, increment length */
+		else
+			break; /* no match found */
 	}
 	return (len);
 }
