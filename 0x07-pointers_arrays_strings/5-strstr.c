@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * _strstr - locate a substring
  * @haystack: string
@@ -25,5 +27,5 @@ char *_strstr(char *haystack, char *needle)
 		if (!needle[j])
 			return (&haystack[i]);
 	}
-	return (0); /* no match found */
+	return (NULL); /* no match found */
 }

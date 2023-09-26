@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * _strpbrk - searches a string for any of a set of bytes
  * @s: string
@@ -21,5 +23,5 @@ char *_strpbrk(char *s, char *accept)
 				return (s + i); /* match found*/
 		}
 	}
-	return (0); /* no match found or end of string - return NULL */
+	return (NULL); /* no match found or end of string - return NULL */
 }
