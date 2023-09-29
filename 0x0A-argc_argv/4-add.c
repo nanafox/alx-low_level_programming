@@ -11,26 +11,26 @@
  */
 int main(int argc, char *argv[])
 {
-	int i;
-	size_t sum = 0;
+	int i, j, sum = 0;
 
-	if (argc == 1) /* no other arguments received, there's nothing to do */
+	if (!(argc > 1)) /* no other arguments received, there's nothing to do */
+		printf("%d\n", sum);
+	else
 	{
-		printf("%lu\n", sum);
-		return (0);
-	}
-
-	for (i = 1; i < argc; i++)
-	{
-		if (!isdigit(argv[i][0])) /* handle non-digits */
+		for (i = 1; i < argc; i++)
 		{
-			fprintf(stderr, "Error\n");
-			return (1);
+			for (j = 0; argv[i][j] != '\0'; j++)
+			{
+				if (!isdigit(argv[i][j])) /* handle non-digits */
+				{
+					puts("Error");
+					return (1);
+				}
+			}
+			sum += atoi(argv[i]); /* update sum */
 		}
-
-		sum += strtoll(argv[i], '\0', 10); /* update sum */
+		printf("%d\n", sum);
 	}
-	printf("%lu\n", sum);
 
 	return (0);
 }
