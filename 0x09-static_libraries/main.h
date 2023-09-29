@@ -1,7 +1,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-#define NULL ((void*)0)
+#define NULL ((void *)0)
 
 int _putchar(char c);
 int _islower(int c);
