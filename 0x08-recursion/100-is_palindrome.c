@@ -10,6 +10,9 @@ int palindrome_helper(char *s, int start, int end);
  */
 int is_palindrome(char *s)
 {
+	if (*s == '\0') /* empty strings are palindrome */
+		return (1);
+
 	return (palindrome_helper(s, 0, strlen(s) - 1));
 }
 
@@ -23,9 +26,6 @@ int is_palindrome(char *s)
  */
 int palindrome_helper(char *s, int start, int end)
 {
-	if (*s == '\0') /* handle empty strings */
-		return (0);
-
 	if (s[start] != s[end])
 		return (0);
 	if (start >= end)
