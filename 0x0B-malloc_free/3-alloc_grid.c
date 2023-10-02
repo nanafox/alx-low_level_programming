@@ -11,32 +11,33 @@
  */
 int **alloc_grid(int width, int height)
 {
-	int **grid, *grid_data;
-	int size, i;
+	int **grid, col;
 
 	if (height <= 0 || width <= 0)
 		return (NULL);
-
-	size = height * width; /* get the full size of the grid */
 
 	grid = (int **) malloc(height * sizeof(int *));
 	if (grid == NULL)
 		return (NULL);
 
-	/* allocate memory for 1D grid of size `height * width` */
-	grid_data = (int *) malloc(size * sizeof(int));
-	if (grid_data == NULL)
+	for (col = 0; col < height; col++)
 	{
-		free(grid);
-		return (NULL); /* handle memory allocation failure and dangling pointer */
+		/* allocate memory for rows */
+		grid[col] = (int *) malloc(width * sizeof(int));
+
+		if (grid[col] == NULL)
+		{
+			while (col >= 0)
+			{
+				free(grid[col]);
+				col--;
+			}
+			free(grid);
+			return (NULL); /* handle memory allocation failure and dangling pointer */
+		}
+		/* initialize the rows of each grid column with zeros */
+		memset(grid[col], 0, width * sizeof(int));
 	}
-
-	/* initialize the grid to point to the data - 1D grids */
-	for (i = 0; i < height; i++)
-		grid[i] = grid_data + i * width;
-
-	/* initialize grid with zeros */
-	memset(grid_data, 0, size * sizeof(int));
 
 	return (grid);
 }
