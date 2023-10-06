@@ -8,6 +8,15 @@ void *_memcpy(void *dest, const void *src, unsigned int n);
  * @old_size: size of the old memory block
  * @new_size: size of the new memory block
  *
+ * Description: The _realloc() function changes the size of the memory block
+ * pointed to by @old_mem_blk to @new_size bytes. The contents will be
+ * unchanged in the range from the start of the region up to the minimum of the
+ * old and new sizes. If the @new_size is larger than the @old_size, the added
+ * memory will not be initialized. If @old_mem_blk is NULL, then the call is
+ * equivalent to @malloc(@new_size), for all values of @old_size and @new_size;
+ * if @new_size is equal to zero, and @old_mem_blk ptr is not NULL, then the
+ * call is equivalent to free(@old_mem_blk).
+ *
  * Return: a pointer to the newly allocated memory,
  * or NULL if the request failed
  */
@@ -17,8 +26,9 @@ void *_realloc(void *old_mem_blk, unsigned int old_size, unsigned int new_size)
 	unsigned int min_size;
 
 	if (new_size == old_size)
-		return (old_mem_blk);
+		return (old_mem_blk); /* nothing to do, old and new sizes are the same */
 
+	/* handle the free() equivalent call of the _realloc function */
 	if (new_size == 0 && old_mem_blk != NULL)
 	{
 		free(old_mem_blk);
@@ -56,10 +66,10 @@ void *_memcpy(void *dest, const void *src, unsigned int n)
 {
 	unsigned int i;
 
-	char *d = (char *) dest;
-	const char *s = (const char *) src;
+	char *temp_dest = (char *) dest;
+	const char *temp_src = (const char *) src;
 
 	for (i = 0; i < n; i++)
-		d[i] = s[i];
+		temp_dest[i] = temp_src[i];
 	return (dest);
 }

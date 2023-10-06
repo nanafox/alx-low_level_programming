@@ -1,7 +1,7 @@
 #include "main.h"
 
 /* helper functions */
-#define check_null(s) ((s == NULL) ? (s = "") : s)
+#define empty_if_null(s) ((s == NULL) ? (s = "") : s)
 unsigned int _strlen(const char *s);
 
 /**
@@ -21,8 +21,9 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	char *new_str;
 	unsigned int s1_len, s2_len, new_str_len, i, j;
 
-	check_null(s1);
-	check_null(s2);
+	/* handle as an empty string if NULL */
+	empty_if_null(s1);
+	empty_if_null(s2);
 
 	s1_len = _strlen(s1);
 	s2_len = _strlen(s2);

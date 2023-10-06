@@ -10,9 +10,10 @@ void print_err_msg(void);
 unsigned int _strlen(const char *s);
 
 /**
- * main - multiplies two numbers provided as command line arguments
- * @argc: the number of command line arguments
- * @argv: an array containing the command line arguments
+ * main - multiplies two numbers provided as command line arguments.
+ * @argc: the number of command line arguments.
+ * @argv: an array containing the command line arguments. Exactly two
+ * arguments are required.
  *
  * Return: 0 on success
  */
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
 	char *result;
 
 	if (argc != 3)
-		print_err_msg();
+		print_err_msg(); /* error - more or less than two arguments received */
 
 	op1 = argv[1];
 	op2 = argv[2];
@@ -36,24 +37,20 @@ int main(int argc, char *argv[])
 	result = malloc(sizeof(char) * (result_len + 1));
 
 	if (result == NULL)
-		print_err_msg();
+		print_err_msg(); /* error - memory allocation failed */
 
 	_memset(result, '0', result_len); /* initialize result array with zeros */
 	result[result_len] = '\0';
 
 	for (i = op1_len - 1; i >= 0; i--)
 	{
-		if (!isdigit(op1[i]))
-		{
-			free(result);
-			print_err_msg(); /* handle non-digits */
-		}
 		for (j = op2_len - 1; j >= 0; j--)
 		{
-			if (!isdigit(op2[j]))
+			/* check if both operands are integers, else clean up memory and exit*/
+			if (!isdigit(op1[i]) && !isdigit(op2[j]))
 			{
 				free(result);
-				print_err_msg(); /* handle non-digits */
+				print_err_msg(); /* error - not a digit */
 			}
 
 			/* perform arithmetic */
@@ -66,15 +63,15 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	/* Find the first non-zero digit to determine the starting position */
+	/* find the first non-zero digit to determine the starting position */
 	start = 0;
 	while (start < result_len && result[start] == '0')
 		start++;
 
 	if (start == result_len)
-		puts("0");
+		puts("0"); /* answer is zero */
 	else
-		printf("%s\n", result + start);
+		printf("%s\n", result + start); /* print result without the leading zero */
 
 	free(result);
 
