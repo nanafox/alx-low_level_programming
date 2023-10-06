@@ -1,6 +1,6 @@
 #include "main.h"
 
-void _memset(char *s, int c, unsigned int n);
+void *_memset(void *s, int c, unsigned int n);
 
 /**
  * _calloc - allocate dynamic memory
@@ -39,11 +39,14 @@ void *_calloc(unsigned int nmemb, unsigned int size)
  *
  * Description: The _memset() function fills the first @n bytes of the memory
  * area pointed to by @s with the constant byte @c.
+ *
+ * Return: a pointer to memory areas @s
  */
-void _memset(char *s, int c, unsigned int n)
+void *_memset(void *s, int c, unsigned int n)
 {
 	unsigned int i;
+	char *tmp = (char *) s;
 
 	for (i = 0; i < n; i++)
-		s[i] = c;
+		tmp[i] = c;
 }
