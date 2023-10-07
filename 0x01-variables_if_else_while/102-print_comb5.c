@@ -1,4 +1,7 @@
 #include <stdio.h>
+#define _itoa(c) (c + '0')
+#define first_digits(c) (c / 10)
+#define last_digit(c) (c % 10)
 
 /**
  * main - hour-like countdown combinations
@@ -15,13 +18,16 @@ int main(void)
 		{
 			if (i < j)
 			{
-				putchar((i / 10) + '0');
-				putchar((i % 10) + '0');
+				/* print combination */
+				putchar(_itoa(first_digits(i)));
+				putchar(_itoa(last_digit(i)));
 				putchar(' ');
-				putchar((j / 10) + '0');
-				putchar((j % 10) + '0');
-				if (i != 98 || j != 99)
+				putchar(_itoa(first_digits(j)));
+				putchar(_itoa(last_digit(j)));
+
+				if (i != 98 || j != 99) /* ensure we are not at the end */
 				{
+					/* add a comma and space after printing a pair of combinations */
 					putchar(',');
 					putchar(' ');
 				}
