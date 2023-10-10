@@ -1,6 +1,7 @@
 /**
- * _isalpha - checks if @c is lowercase or uppercase letter
+ * _isalpha - Checks whether a letter is lowercase or uppercase letter
  * @c: character
+ *
  * Return: 1 if lowercase or upper, 0 otherwise
  */
 int _isalpha(int c)

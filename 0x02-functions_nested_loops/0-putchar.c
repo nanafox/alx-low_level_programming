@@ -8,8 +8,8 @@ int main(void)
 {
 	char *str = "_putchar";
 
-	for (; *str; str++)
-		_putchar(*str);
+	while (*str != '\0')
+		_putchar(*str++);
 	_putchar('\n');
 
 	return (0);

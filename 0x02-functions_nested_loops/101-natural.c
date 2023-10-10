@@ -14,10 +14,10 @@ int main(void)
 }
 
 /**
- * sum_3_5_multiples - compute the sum of all the multiples 3 or 5
- *
+ * sum_3_5_multiples - Returns the sum of all the multiples 3 or 5
  * @num: range
- * Return: sum
+ *
+ * Return: The sum of multiple of 3 or 5
  */
 int sum_3_5_multiples(int num)
 {

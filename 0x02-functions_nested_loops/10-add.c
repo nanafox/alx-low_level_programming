@@ -1,9 +1,10 @@
 /**
- * add - sum two numbers
+ * add - Returns the sum two numbers
  *
- * @a: first number
- * @b: second number
- * Return: sum of @a and @b
+ * @a: First number
+ * @b: Second number
+ *
+ * Return: The sum of @a and @b
  */
 int add(int a, int b)
 {

@@ -1,7 +1,8 @@
 /**
  * _abs - gets the absolute value of an integer
  * @n: number
- * Return: absolute integer value
+ *
+ * Return: The absolute integer value
  */
 int _abs(int n)
 {

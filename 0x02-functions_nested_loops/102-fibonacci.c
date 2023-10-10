@@ -3,7 +3,7 @@
 void print_fibonacci(size_t n);
 
 /**
- * main - driver code
+ * main - Driver code
  * Return: 0
  */
 int main(void)
@@ -13,8 +13,8 @@ int main(void)
 }
 
 /**
- * print_fibonacci - print the n fibonacci number
- * @n: range
+ * print_fibonacci - Prints the nth fibonacci number
+ * @n: The nth fibonacci number to print
  */
 void print_fibonacci(size_t n)
 {

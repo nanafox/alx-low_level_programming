@@ -24,12 +24,12 @@ void sum_even_fibonacci(void)
 	fib_x = 1;
 	sum = fib_y = 2;
 
-	while (!(fib_i > THRESHOLD)) /* loop till condition is met */
+	while (!(fib_i > THRESHOLD)) /* current fib must be within threshold */
 	{
 		fib_i = fib_x + fib_y; /* get next sequence */
 		if (fib_i % 2 == 0)
 			sum += fib_i;
-			/* swap values */
+		/* swap values */
 		fib_x = fib_y;
 		fib_y = fib_i;
 	}

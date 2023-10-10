@@ -4,8 +4,8 @@ void add_format(int p);
 void print_product(int p);
 
 /**
- * print_times_table - prints the 9 times table, starting with 0
- * @n: upper bound number to print up to.
+ * print_times_table - Prints the 9 times table, starting with 0
+ * @n: Upper bound number to print up to.
  */
 void print_times_table(int n)
 {
@@ -30,8 +30,8 @@ void print_times_table(int n)
 }
 
 /**
- * add_format - helper function to neatly format the output of products
- * @p: product
+ * add_format - Helper function to neatly format the output of products
+ * @p: Product
  */
 void add_format(int p)
 {
@@ -44,8 +44,8 @@ void add_format(int p)
 }
 
 /**
- * print_product - helper function to print products
- * @p: product
+ * print_product - Helper function to print products
+ * @p: Product
  */
 void print_product(int p)
 {
