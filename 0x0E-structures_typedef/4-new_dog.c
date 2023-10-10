@@ -1,76 +1,81 @@
 #include "dog.h"
 #include <stdlib.h>
 
-char *_strcpy(char *dest, const char *src);
+char *_strdup(const char *str);
 unsigned int _strlen(const char *s);
 
 /**
- * new_dog - creates a new dog
- * @name: name of dog
- * @age: age of dog
- * @owner: owner of dog
+ * new_dog - Creates a new dog
+ * @name: Name of the dog
+ * @age: Age of the dog
+ * @owner: Name of the dog's owner
  *
- * Return: a pointer to the newly created dog
+ * Return: A pointer to the newly created dog
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
+	/* allocate memory for the new instance of the dog entity */
 	dog_t *dog = malloc(sizeof(dog_t));
 
-	if (dog == NULL)
-		return (NULL); /* memory allocation failed */
-
-	dog->name = malloc(sizeof(char) * (_strlen(name) + 1));
-
+	/* add dog details and also handle memory allocation failures */
+	dog->name = _strdup(name);
 	if (dog->name == NULL)
 	{
 		free(dog);
 		return (NULL); /* memory allocation failed - clean up and leave */
 	}
 
-	dog->owner = malloc(sizeof(char) * (_strlen(owner) + 1));
-
+	dog->owner = _strdup(owner);
 	if (dog->owner == NULL)
 	{
-		free(dog);
 		free(dog->name);
-		return (NULL); /* memory allocation failed for owner string */
+		return (NULL); /* memory allocation failed while duplicating owner's name */
 	}
 
-	/* add dog details */
-	_strcpy(dog->name, name);
-	_strcpy(dog->owner, owner);
-	dog->age = age;
+	dog->age = age; /* save the age of the dog */
 
 	return (dog);
 }
 
 /**
- * _strcpy - copy a string
- * @dest: destination buffer
- * @src: source buffer
+ * _strdup - Duplicates a string.
+ * @str: String to duplicate
  *
- * Description: copies the string pointed to by @src, including the terminating
- * null byte ('\\0'), to the buffer pointed to by @dest. The destination string
- * @dest must be large enough to receive the copy.
+ * Description: The _strdup() function returns a pointer to a newly allocated
+ * space in memory, which contains a copy of the string @str. Memory for the
+ * new string is obtained with malloc() and can be freed with free()
  *
- * Return: pointer to @dest
+ * Return: A pointer to the duplicated string, NULL if it fails
  */
-char *_strcpy(char *dest, const char *src)
+char *_strdup(const char *str)
 {
-	int i;
+	char *dup_str;
+	int i = 0;
 
-	for (i = 0; src[i] != '\0'; i++)
-		dest[i] = src[i];
-	dest[i] = '\0';
+	if (str == NULL)
+		return (NULL); /* handle invalid string */
 
-	return (dest);
+	dup_str = (char *) malloc(sizeof(char) * (_strlen(str) + 1));
+
+	if (dup_str == NULL)
+		return (NULL);
+
+	/* duplicate string - a copy process */
+	while (str[i] != '\0')
+	{
+		dup_str[i] = str[i];
+		i++;
+	}
+	dup_str[i] = '\0';
+
+	return (dup_str);
 }
 
 /**
- * _strlen - get the length of a string
- * @s: string
+ * _strlen - Get the length of a string
+ * @s: String
  *
- * Return: the length of string @s
+ * Return: The length of string @s
  */
 unsigned int _strlen(const char *s)
 {
