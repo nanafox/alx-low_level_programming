@@ -26,7 +26,7 @@ unsigned int _strspn(char *s, char *accept)
 
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (s[i] == ' ') /* search still next word */
+		if (s[i] == ' ') /* search till next word */
 			break;
 		else if (map[(unsigned char)s[i]])
 			len++; /* match found, increment length */
