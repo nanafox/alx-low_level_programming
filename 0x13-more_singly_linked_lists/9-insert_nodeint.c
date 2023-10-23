@@ -14,7 +14,7 @@ listint_t *prepend(listint_t **head, int val);
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int val)
 {
 	unsigned int i = 0;
-	listint_t *new_node, *prev, *cur;
+	listint_t *new_node, *cur;
 
 	new_node = create_node();
 	if (new_node == NULL)
@@ -30,35 +30,24 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int val)
 	new_node->next = NULL;
 	cur = *head;
 
-	while (cur != NULL)
+	while (i < idx - 1)
 	{
-
-		/* insert at an intermediate position if the index is found */
-		if (i == idx)
+		/* handle cases where node could not be inserted */
+		if (cur == NULL || cur->next == NULL)
 		{
-			prev->next = new_node;
-			new_node->next = cur;
-			return (*head);
+			free(new_node); /* free the allocated memory */
+			new_node = NULL;
+			return (NULL);
 		}
-		else
-		{
-			prev = cur; /* keep track of the previous node */
-			cur = cur->next;
-			i++;
-		}
+		i++;
+		cur = cur->next;
 	}
 
-	/* handle insertion at the tail */
-	if (idx == i)
-	{
-		prev->next = new_node;
-		return (*head);
-	}
+	/* insert node */
+	new_node->next = cur->next;
+	cur->next = new_node;
 
-	free(new_node); /* insertion failed */
-	new_node = NULL;
-
-	return (NULL); /* new node insertion failed */
+	return (*head);
 }
 
 /**
