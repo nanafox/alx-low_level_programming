@@ -33,7 +33,8 @@ listint_t *reverse_listint(listint_t **head);
 size_t print_listint_safe(const listint_t *head);
 size_t free_listint_safe(listint_t **h);
 listint_t *find_listint_loop(listint_t *head);
-
+const listint_t **append_to_list(const listint_t **node_list, size_t,
+		const listint_t *new_node);
 /* a safer way to deallocate dynamic memory */
 void _free(void **ptr);
 #define safe_free(p) _free((void **) &(p))
