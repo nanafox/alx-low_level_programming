@@ -7,11 +7,17 @@
  * binary_to_uint - converts a binary to an unsigned integer
  * @b: the string containing the binary value to be converted
  *
- * Return: the base 10 representation of binary digit @b
+ * Return: the base 10 representation of binary digit @b,
+ * else 0 if b is either NULL or a non-binary digit
  */
 unsigned int binary_to_uint(const char *b)
 {
 	unsigned int base_10 = 0;
+
+	if (b == NULL)
+	{
+		return (0);
+	}
 
 	while (*b != '\0')
 	{

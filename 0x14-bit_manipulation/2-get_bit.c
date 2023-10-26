@@ -7,7 +7,15 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	int bit = (n & (1 << index)) ? 1 : 0;
+	int bit;
+
+	/* ensure index is between 0 and 63 */
+	if (index > sizeof(unsigned long int) * 8 - 1)
+	{
+		return (-1); /* index is out of range */
+	}
+
+	bit = (n & (1 << index)) ? 1 : 0;
 
 	return (bit);
 }

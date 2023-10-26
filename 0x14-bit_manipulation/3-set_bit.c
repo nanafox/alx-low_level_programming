@@ -8,12 +8,14 @@
 int set_bit(unsigned long int *n, unsigned int index)
 {
 	unsigned int mask = 1 << index;
-	*n = (*n | mask);
 
-	if (*n)
+	/* ensure index is between 0 and 63 */
+	if (index > sizeof(unsigned long int) * 8 - 1)
 	{
-		return (1);
+		return (-1); /* index is out of range */
 	}
 
-	return (-1);
+	*n |= mask;
+
+	return (1);
 }
