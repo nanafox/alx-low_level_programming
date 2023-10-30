@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <elf.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #define BUFF_LEN 1024
 
@@ -47,7 +50,25 @@ int append_text_to_file(const char *filename, char *text_content);
 /* helper functions for task 3 - cp */
 
 void cp(int fd_in, int fd_out, char *buffer, char *dest_file, char *src_file);
-char *prepare_buffer(char *src, char *dest);
 int close_fds(int nfds, ...);
+#define print_usage() dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n")
+
+/* helper functions for advanced task */
+
+#define is_invalid_elf(e_ident) ( \
+		(e_ident) != 127 && (e_ident) != 'E' && \
+		(e_ident) != 'L' && (e_ident) != 'F' \
+		)
+void check_elf(unsigned char *e_ident);
+void handle_magic(unsigned char *e_ident);
+void handle_class(unsigned char *e_ident);
+void handle_data(unsigned char *e_ident);
+void handle_version(unsigned char *e_ident);
+void handle_abi(unsigned char *e_ident);
+void handle_osabi(unsigned char *e_ident);
+void handle_type(unsigned int e_type, unsigned char *e_ident);
+void handle_entry(unsigned long int e_entry, unsigned char *e_ident);
+void close_elf(int elf_fd);
+void print_usage(void);
 
 #endif /* FILE_IO_H */
