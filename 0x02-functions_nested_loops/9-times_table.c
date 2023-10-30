@@ -17,7 +17,7 @@ void times_table(void)
 			product = i * j; /* get product */
 			print_product(product);
 			if (j == 9)
-				continue;
+				break;
 			next_product = i * (j + 1); /* check next product */
 			add_format(next_product);
 		}
