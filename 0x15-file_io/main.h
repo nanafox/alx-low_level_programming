@@ -5,13 +5,16 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
 
 #define BUFF_LEN 1024
 
 /* exit codes */
 
-#define INVLAID_NARGS 97
+#define INVALID_NARGS 97
 #define NO_SUCH_FILE 98 /* the file does not exist or lack of permissions */
+#define READ_FAIL 98
 #define WRITE_FAIL 99
 #define CLOSE_FAIL 100
 
@@ -40,5 +43,11 @@
 ssize_t read_textfile(const char *filename, size_t letters);
 int create_file(const char *filename, char *text_content);
 int append_text_to_file(const char *filename, char *text_content);
+
+/* helper functions for task 3 - cp */
+
+void cp(int fd_in, int fd_out, char *buffer, char *dest_file, char *src_file);
+char *prepare_buffer(char *src, char *dest);
+int close_fds(int nfds, ...);
 
 #endif /* FILE_IO_H */
