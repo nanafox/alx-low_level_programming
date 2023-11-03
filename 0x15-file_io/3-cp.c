@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		print_usage();
+		print_cp_usage();
 		exit(INVALID_NARGS); /* invalid number of arguments */
 	}
 

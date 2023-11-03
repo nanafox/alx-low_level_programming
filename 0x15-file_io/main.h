@@ -51,7 +51,8 @@ int append_text_to_file(const char *filename, char *text_content);
 
 void cp(int fd_in, int fd_out, char *buffer, char *dest_file, char *src_file);
 int close_fds(int nfds, ...);
-#define print_usage() dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n")
+#define print_cp_usage() \
+	dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n")
 
 /* helper functions for advanced task */
 
