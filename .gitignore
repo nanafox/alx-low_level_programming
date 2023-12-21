@@ -11,6 +11,8 @@ __*
 !Makefile
 !*.md
 !.gitignore
+# ignore main.c file used for testsing
+*-main.c
 
 # ignore these
 main.c
