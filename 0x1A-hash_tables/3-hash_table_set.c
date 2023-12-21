@@ -16,9 +16,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	if (ht == NULL || key == NULL || *key == '\0' || value == NULL)
 		return (0); /* insertion failed: invalid parameter */
 
-	if (ht->count == ht->size)
-		return (0); /* insertion failed: the hash table is full */
-
 	node = malloc(sizeof(hash_node_t));
 	if (node == NULL)
 		return (0); /* insertion failed: memory allocation failed */
@@ -26,11 +23,13 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	index = key_index((const unsigned char *)key, ht->size);
 	node->key = strdup(key);
 	node->value = strdup(value);
+
 	if (node->key == NULL || node->value == NULL)
 	{
 		multi_free("ssn", node->key, node->value, node);
 		return (0);
 	}
+
 	if (ht->array[index] == NULL)
 		ht->array[index] = node;
 	else
@@ -48,7 +47,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		}
 		exit_code = handle_collision(ht, node, index); /* handle collision */
 	}
-	ht->count++; /* keep track of the number of nodes in the hash table */
 	return (exit_code);
 }
 
