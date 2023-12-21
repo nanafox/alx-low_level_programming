@@ -19,8 +19,10 @@ hash_table_t *hash_table_create(unsigned long int size)
 	if (hash_map == NULL)
 		return (NULL); /* memory allocation failed */
 
-	/* allocate memory for the array of linked lists */
-	hash_map->array = malloc(sizeof(char *) * size);
+	hash_map->size = size;
+
+	/* allocate memory and initialize the array of linked lists */
+	hash_map->array = calloc(hash_map->size, sizeof(hash_node_t *));
 	if (hash_map->array == NULL)
 	{
 		free(hash_map);
