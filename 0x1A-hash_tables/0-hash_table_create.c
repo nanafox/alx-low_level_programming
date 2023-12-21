@@ -20,6 +20,7 @@ hash_table_t *hash_table_create(unsigned long int size)
 		return (NULL); /* memory allocation failed */
 
 	hash_map->size = size;
+	hash_map->count = 0;
 
 	/* allocate memory and initialize the array of linked lists */
 	hash_map->array = calloc(hash_map->size, sizeof(hash_node_t *));

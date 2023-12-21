@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 /**
  * struct hash_node_s - Node of a hash table
@@ -31,6 +32,7 @@ typedef struct hash_node_s
 typedef struct hash_table_s
 {
 	unsigned long int size;
+	unsigned long int count;
 	hash_node_t **array;
 } hash_table_t;
 
@@ -41,5 +43,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value);
 char *hash_table_get(const hash_table_t *ht, const char *key);
 void hash_table_print(const hash_table_t *ht);
 void hash_table_delete(hash_table_t *ht);
-
+void multi_free(const char *format, ...);
+int handle_collision(hash_table_t *ht, hash_node_t *node,
+					 unsigned long int idx);
 #endif
