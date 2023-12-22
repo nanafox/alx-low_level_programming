@@ -16,7 +16,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	if (ht == NULL || key == NULL || *key == '\0' || value == NULL)
 		return (0); /* insertion failed: invalid parameter */
 
-	node = malloc(sizeof(hash_node_t));
+	node = calloc(1, sizeof(hash_node_t));
 	if (node == NULL)
 		return (0); /* insertion failed: memory allocation failed */
 
@@ -38,15 +38,17 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		{
 			if (strcmp(ht->array[index]->value, node->value) == 0)
 			{
-				multi_free("ss", node->key, node->value);
+				multi_free("ssn", node->key, node->value, node);
 				return (1); /* value already exists */
 			}
 			free(ht->array[index]->value);
-			ht->array[index]->value = node->value;
+			ht->array[index]->value = strdup(node->value);
+			multi_free("ssn", node->key, node->value, node);
 			return (1);
 		}
 		exit_code = handle_collision(ht, node, index); /* handle collision */
 	}
+
 	return (exit_code);
 }
 
@@ -76,7 +78,8 @@ int handle_collision(hash_table_t *ht, hash_node_t *n, unsigned long int idx)
 				return (1);
 			}
 			free(tmp->value);
-			tmp->value = n->value;
+			tmp->value = strdup(n->value);
+			multi_free("ssn", n->key, n->value, n);
 
 			return (1);
 		}
