@@ -49,45 +49,45 @@ shash_table_t *shash_table_create(unsigned long int size)
  */
 int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 {
-	shash_node_t *node;
+	shash_node_t *node, *tmp;
 	unsigned long int index;
 
 	if (ht == NULL || key == NULL || *key == '\0' || value == NULL)
 		return (0); /* insertion failed: invalid parameter */
 
-	node = calloc(1, sizeof(shash_node_t));
+	index = key_index((const unsigned char *)key, ht->size);
+	tmp = ht->shead;
+	while (tmp)
+	{
+		if (strcmp(tmp->key, key) == 0)
+		{
+			if (strcmp(tmp->value, value) == 0)
+				return (1); /* value already exists */
+
+			free(tmp->value);
+			tmp->value = strdup(value);
+			return (1);
+		}
+		tmp = tmp->snext;
+	}
+	node = malloc(sizeof(shash_node_t));
 	if (node == NULL)
 		return (0); /* insertion failed: memory allocation failed */
 
-	index = key_index((const unsigned char *)key, ht->size);
 	node->key = strdup(key);
-	node->value = strdup(value);
-
-	if (node->key == NULL || node->value == NULL)
+	if (node->key == NULL)
 	{
-		multi_free2("ssn", node->key, node->value, node);
+		free(node);
+		return (0);
+	}
+	node->value = strdup(value);
+	if (node->value == NULL)
+	{
+		multi_free2("sn", node->key, node);
 		return (0);
 	}
 
-	/* handle insertion when the bucket is empty */
-	if (ht->array[index] == NULL)
-		ht->array[index] = node;
-	else
-	{
-		if (strcmp(ht->array[index]->key, node->key) == 0)
-		{
-			if (strcmp(ht->array[index]->value, node->value) == 0)
-			{
-				multi_free2("ss", node->key, node->value, node);
-				return (1); /* value already exists */
-			}
-			free(ht->array[index]->value);
-			ht->array[index]->value = strdup(node->value);
-			multi_free2("ssn", node->key, node->value, node);
-			return (1);
-		}
-	}
-	handle_sorted_insertion(ht, node);
+	handle_sorted_insertion(ht, node, index);
 	return (1);
 }
 
@@ -95,10 +95,15 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
  * handle_sorted_insertion - handles the sorted insertion of hash tables
  * @ht: the hash table to sort
  * @node: the current node to insert
+ * @idx: the index of the key (where to insert at)
  */
-void handle_sorted_insertion(shash_table_t *ht, shash_node_t *node)
+void handle_sorted_insertion(shash_table_t *ht, shash_node_t *node, size_t idx)
 {
 	shash_node_t *tmp;
+
+	/* handle insertion */
+	node->next = ht->array[idx];
+	ht->array[idx] = node;
 
 	/* handle insertion when the sorted bucket is empty */
 	if (ht->shead == NULL)
