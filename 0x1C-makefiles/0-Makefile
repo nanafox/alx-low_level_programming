@@ -1,0 +1,6 @@
+# run only the `school` target
+all: school
+
+# compile the C source files into an executable called `school`
+school:
+	gcc main.c school.c -o school
