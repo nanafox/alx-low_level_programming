@@ -1,11 +1,9 @@
 # get all the C source files in the current directory 
-SRC := $(wildcard *.c)
+SRC = main.c school.c
 
 # set the C compiler to use
-CC := gcc
-
-all: school
+CC = gcc
 
 # create the executable file `school` from the C source files
-school:
-	${CC} -o school ${SRC}
+all:
+	${CC} ${SRC} -o school

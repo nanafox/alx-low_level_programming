@@ -1,18 +1,17 @@
 # This Makefile builds an executable file name `school` from the C objects
 # files. These object files are then linked to create the executable file.
 
-CC := gcc
-SRC := $(wildcard *.c)
-OBJ := $(SRC:%.c=%.o)
+CC = gcc
+SRC = main.c school.c
+OBJ = $(SRC:%.c=%.o)
 NAME = school
 RM = rm
 
 
-all: ${NAME}
-.PHONY: all clean oclean fclean re ${NAME}
+.PHONY: all clean oclean fclean re
 
 # link object files and create the executable
-${NAME}: ${OBJ}
+all: ${OBJ}
 	${CC} ${OBJ} -o ${NAME}
 
 # generate object files
@@ -31,4 +30,4 @@ oclean:
 fclean: oclean clean
 
 # force the recompilation and building of executable files
-re: oclean ${NAME}
+re: oclean all
