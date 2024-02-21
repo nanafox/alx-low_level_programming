@@ -1,0 +1,11 @@
+# get all the C source files in the current directory 
+SRC := $(wildcard *.c)
+
+# set the C compiler to use
+CC := gcc
+
+all: school
+
+# create the executable file `school` from the C source files
+school:
+	${CC} -o school ${SRC}
